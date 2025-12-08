@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Registro.css";
+import { Alert } from "antd";
 
 function Registro() {
   //Aqui es donde se va a almacenar cada dato del formulario
@@ -33,7 +34,7 @@ function Registro() {
     //Evaluamos si alguna de los estados no esta definido y si es asi se indica
     //que existen datos incompletos
     if (!users || !password || !email) {
-      return console.error("Datos incompletos");
+      return alert("Campos incompletos");
     }
     const data = { users, password, email }; //se declaran las variables como objetos
 
@@ -49,9 +50,11 @@ function Registro() {
         body: JSON.stringify(data),
       });
 
+      alert("Usuario registrado con exito");
       const result = await res.json();
       console.log("Respuesta del servidor" + result);
     } catch (error) {
+      alert("Error al enviar los datos");
       console.error("Error al enviar los datos" + error);
     }
   }
