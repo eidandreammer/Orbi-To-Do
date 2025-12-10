@@ -46,26 +46,30 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-app.post("/api/register", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { users, password, email } = req.body;
 
   try {
-    //Validacion de usuario
-    const logg = await pool.query(
-      "SELECT * FROM users WHERE name = $1 AND password = $2 AND email = $3",
-      [users, password, email]
+    const login = await pool.query(
+      "SELECT FROM users WHERE name = $1 AND password = $2",
+      [users, password]
     );
 
-    if (logg.rows.length === 1) {
-      return res.status(200).json({
-        data: logg,
+    if (login.rows.length > 0) {
+      return res.status(201).json({
         success: true,
+        data: login.rows[0],
       });
     }
-  } catch (errro) {
-    res.status(500).json({
-      message: "Error del lado del servidor",
+
+    res.status(404).json({
       success: false,
+      message: "Usuario no encontrado",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error de lado del servidor",
     });
   }
 });

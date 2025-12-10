@@ -49,29 +49,33 @@ function Registro() {
       console.error("Error al enviar los datos" + error);
     }
   }
-  async function logIn() {
+
+  async function login() {
     if (!users || !password || !email) {
       return alert("Campos incompletos");
     }
-    const data = { users, password, email }; //se declaran las variables como objetos
+
+    const data = { users, password, email };
 
     try {
-      const res = await fetch("http://localhost:3000/api/register", {
+      const res = await fetch("http://localhost:3000/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
       const result = await res.json();
-      alert("Seccion iniciada");
-      console.log("Respuesta del servidor", result);
+      if (result.success && res.ok) {
+        alert("Inicio de seccion exitoso");
+      }else{
+        alert(result.message)
+      }
     } catch (error) {
-      alert("Error al iniciar seccion");
-      console.error("Error al iniciar seccion", error);
+      console.log("Error al iniciar seccion", error);
+      alert("Error al inicciar seccion");
     }
   }
+
   return (
     <div className="card">
       <h1>User's form</h1>
@@ -107,7 +111,7 @@ function Registro() {
           </div>
 
           <div className="buttons">
-            <button type="button" onClick={logIn}>
+            <button type="button" onClick={login}>
               Login
             </button>
             <button type="button" onClick={register}>
