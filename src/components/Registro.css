@@ -6,13 +6,13 @@
 /* From Uiverse.io by adamgiebl */
 .card {
   padding: 20px;
-  background: rgb(245, 245, 245);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset,
-    rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+  background: #f5f5f5;
+  box-shadow: #7fc1ff 0px 10px 65px -10px inset,
+    #0000004d 0px 18px 26px -18px inset;
   height: 100vh;
   width: 100vw;
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   flex-flow: column;
 }
@@ -92,4 +92,8 @@ form {
   padding-top: 20px;
   color: #0051d3;
   text-decoration: none;
+}
+/*Logo*/
+
+#logo{
 }
