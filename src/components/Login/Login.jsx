@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css";
 import Registro from "../Registro/Registro";
+import Forgot from "../Forgot/Forgot";
 
 function Login() {
   //Aqui es donde se va a almacenar cada dato del formulario
@@ -44,49 +45,65 @@ function Login() {
 
   //Evaluamos si alguna de los estados no esta definido y si es asi se indica
   //que existen datos incompletos
-  const [view, setView] = useState(true);
+  const [register, setRegister] = useState(true);
+  const [pass, setPass] = useState(true);
   return (
     <div>
-      {view && (
-        <div className="container">
-          <img className="logo" src="/img/OrbiNombre.png" />
-          <h1>Login</h1>
-          <div className="form">
-            <form>
-              <input
-                type="text"
-                name="text"
-                className="input"
-                placeholder="User"
-                onChange={(e) => inpUser(e)}
-              />
-              <input
-                type="password"
-                name="password"
-                className="input"
-                placeholder="Password"
-                onChange={(e) => inpPassword(e)}
-              />
-              <div className="fgtpsw">
-                <p>
-                  <a href="###">Forgot your password?</a>
-                </p>
-              </div>
+      {pass && (
+        <div>
+          {register && (
+            <div className="container">
+              <img className="logo" src="/img/OrbiNombre.png" />
+              <h1>Login</h1>
+              <div className="form">
+                <form>
+                  <input
+                    type="text"
+                    name="text"
+                    className="input"
+                    placeholder="User"
+                    onChange={(e) => inpUser(e)}
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    className="input"
+                    placeholder="Password"
+                    onChange={(e) => inpPassword(e)}
+                  />
+                  <div className="fgtpsw">
+                    <p>
+                      <a
+                        href="###"
+                        onClick={() => {
+                          setPass(!pass);
+                        }}
+                      >
+                        Forgot your password?
+                      </a>
+                    </p>
+                  </div>
 
-              <div className="buttons">
-                <button type="button" onClick={login}>
-                  Login
-                </button>
-                <button type="button" onClick={() => setView(!view)}>
-                  Register
-                </button>
+                  <div className="buttons">
+                    <button type="button" onClick={login}>
+                      Login
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setRegister(!register)}
+                    >
+                      Register
+                    </button>
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
+            </div>
+          )}
+
+          {!register && <Registro />}
         </div>
       )}
-
-      {!view && <Registro />}
+      {!pass && <Forgot />}
     </div>
   );
 }

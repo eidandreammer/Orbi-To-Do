@@ -17,19 +17,7 @@
   flex-flow: column;
 }
 
-/*Logo Orbi*/
-.logo {
-  position: absolute;
-  width: 200px;
-  height: 200px;
 
-  top: 0;
-
-  @media (min-width: 756px) {
-    top: -7vh;
-    left: 0vw;
-  }
-}
 
 /* From Uiverse.io by reglobby */
 .input {

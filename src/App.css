@@ -29,6 +29,16 @@ img {
   width: 100px;
 }
 
-h1{
-    color: #0d2a58
+/*Logo Orbi*/
+.logo {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+
+  top: 0;
+
+  @media (min-width: 756px) {
+    top: -7vh;
+    left: 0vw;
+  }
 }
