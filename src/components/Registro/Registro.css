@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 /* From Uiverse.io by adamgiebl */
-.card {
+.container {
   padding: 20px;
   background: #f5f5f5;
   box-shadow: #7fc1ff 0px 10px 65px -10px inset,
@@ -17,6 +17,9 @@
   flex-flow: column;
 }
 
+h1 {
+  color: #0d2a58;
+}
 /* From Uiverse.io by reglobby */
 .input {
   border: 2px solid transparent;
@@ -42,7 +45,7 @@
 /* From Uiverse.io by Mhyar-nsi */
 button {
   background-color: #f3f7fe;
-  color: #3b82f6;
+  color: #0d2a58;
   border: none;
   cursor: pointer;
   border-radius: 8px;
@@ -78,18 +81,9 @@ form {
   padding-top: 20px;
 }
 
-.register a {
-  text-decoration: none;
-}
 .fgtpsw {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.fgtpsw a {
-  padding-top: 20px;
-  color: #0051d3;
-  text-decoration: none;
 }

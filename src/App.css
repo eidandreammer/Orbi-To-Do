@@ -1,4 +1,8 @@
-.card {
+* {
+  font-family: "Segoe UI", sans-serif;
+}
+
+.container {
   padding: 20px;
   background: #f5f5f5;
   box-shadow: #7fc1ff 0px 10px 65px -10px inset,
@@ -18,4 +22,13 @@
 
 .btn button {
   margin: 15px;
+}
+
+img {
+  height: 100px;
+  width: 100px;
+}
+
+h1{
+    color: #0d2a58
 }

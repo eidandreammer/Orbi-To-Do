@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 /* From Uiverse.io by adamgiebl */
-.card {
+.container {
   padding: 20px;
   background: #f5f5f5;
   box-shadow: #7fc1ff 0px 10px 65px -10px inset,
@@ -15,6 +15,15 @@
   justify-content: center;
   align-items: center;
   flex-flow: column;
+}
+
+/*Logo Orbi*/
+.logo{
+  position: relative;
+  top: ;
+
+  @media(min-width:768px){
+}
 }
 
 /* From Uiverse.io by reglobby */
@@ -42,7 +51,7 @@
 /* From Uiverse.io by Mhyar-nsi */
 button {
   background-color: #f3f7fe;
-  color: #3b82f6;
+  color: #0d2a58;
   border: none;
   cursor: pointer;
   border-radius: 8px;
@@ -78,9 +87,6 @@ form {
   padding-top: 20px;
 }
 
-.register a {
-  text-decoration: none;
-}
 .fgtpsw {
   width: 100%;
   display: flex;
@@ -90,6 +96,6 @@ form {
 
 .fgtpsw a {
   padding-top: 20px;
-  color: #0051d3;
+  color: #0d2a58;
   text-decoration: none;
 }

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "./Registro.css";
+import "./Registro.css"
 import Login from "../Login/Login";
 
 function Registro() {
   //Aqui es donde se va a almacenar cada dato del formulario
-  const [users, setUsers] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  let [users, setUsers] = useState("");
+  let [password, setPassword] = useState("");
+  let [email, setEmail] = useState("");
 
   //Aqui es en donde se declara la funcion para llamarla y se actualice
   //el valor de cada estado con el contenido del input
@@ -59,7 +59,7 @@ function Registro() {
   return (
     <div>
       {view && (
-        <div className="card">
+        <div className="container">
           <h1>Register form</h1>
           <div className="form">
             <form>
@@ -91,7 +91,12 @@ function Registro() {
                 <button type="button" onClick={() => setView(!view)}>
                   Login
                 </button>
-                <button type="button" onClick={register}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    register();
+                  }}
+                >
                   Register
                 </button>
               </div>

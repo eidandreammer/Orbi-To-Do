@@ -49,7 +49,8 @@ function Login() {
   return (
     <div>
       {view && (
-        <div className="card">
+        
+        <div className="container">
           <h1>Login form</h1>
           <div className="form">
             <form>
