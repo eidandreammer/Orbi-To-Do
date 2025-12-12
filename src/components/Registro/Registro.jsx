@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Registro.css"
+import "./Registro.css";
 import Login from "../Login/Login";
 
 function Registro() {
@@ -60,6 +60,7 @@ function Registro() {
     <div>
       {view && (
         <div className="container">
+          <img className="logo" src="/img/OrbiNombre.png" />
           <h1>Register form</h1>
           <div className="form">
             <form>

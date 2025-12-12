@@ -49,8 +49,8 @@ function Login() {
   return (
     <div>
       {view && (
-        
         <div className="container">
+          <img className="logo" src="/img/OrbiNombre.png" />
           <h1>Login form</h1>
           <div className="form">
             <form>
