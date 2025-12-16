@@ -7,7 +7,12 @@ function Login() {
   //Aqui es donde se va a almacenar cada dato del formulario
   const [users, setUsers] = useState("");
   const [password, setPassword] = useState("");
-
+  const [alerts, setAlerts] = useState({
+    cmpInc: false,
+    problem: false,
+    login: false,
+    error: false,
+  });
   //Aqui es en donde se declara la funcion para llamarla y se actualice
   //el valor de cada estado con el contenido del input
 
@@ -34,7 +39,7 @@ function Login() {
 
       const result = await res.json();
       if (!result.success) {
-        return alert(result.message);
+        return;
       }
       alert("Seccion iniciada");
     } catch (error) {
@@ -43,8 +48,6 @@ function Login() {
     }
   }
 
-  //Evaluamos si alguna de los estados no esta definido y si es asi se indica
-  //que existen datos incompletos
   const [register, setRegister] = useState(true);
   const [pass, setPass] = useState(true);
 
@@ -57,7 +60,6 @@ function Login() {
               <img className="logo" src="/img/OrbiNombre.png" />
 
               <div className="form">
-                <Alert title="Operación exitosa" type="success" showIcon />
                 <h1>Login</h1>
 
                 <form>

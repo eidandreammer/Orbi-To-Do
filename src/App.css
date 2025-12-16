@@ -95,6 +95,11 @@ h1 {
   margin: 15px;
   color: #0d2a58;
 }
+
+.alert{
+  margin: 20px;
+}
+
 .register {
   display: flex;
   justify-content: center;
