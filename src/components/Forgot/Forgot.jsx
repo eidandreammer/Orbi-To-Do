@@ -82,74 +82,82 @@ function Forgot() {
     }
   }
 
+  const [logg, setLogg] = useState(true);
+  function login() {
+    setLogg(!logg);
+  }
   return (
     <div>
-      {show && (
-        <div className="container">
-          <img className="logo" src="/img/OrbiNombre.png" />
+      {logg && (
+        <div>
+          {show && (
+            <div className="container">
+              <img className="logo" src="/img/OrbiNombre.png" />
 
-          <div className="form">
-            {view ? <h1>Registered email</h1> : <h1>Change password</h1>}
-            <form>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                className="input"
-                placeholder="Email address"
-                onChange={(e) => inpEmail(e)}
-              />
-
-              {view && (
-                <div className="buttons">
-                  <button>Login</button>
-                  <button
-                    type="submit"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      validate();
-                    }}
-                  >
-                    Send
-                  </button>
-                </div>
-              )}
-              {!view && (
-                <div className="psw">
+              <div className="form">
+                {view ? <h1>Registered email</h1> : <h1>Change password</h1>}
+                <form>
                   <input
-                    type="password"
-                    name="password"
+                    id="email"
+                    type="email"
+                    name="email"
                     className="input"
-                    placeholder="New password"
-                    onChange={(e) => inpPass1(e)}
-                  />
-                  <input
-                    type="password"
-                    name="password"
-                    className="input"
-                    placeholder="Confirm password"
-                    onChange={(e) => inpPass2(e)}
+                    placeholder="Email address"
+                    onChange={(e) => inpEmail(e)}
                   />
 
-                  <div className="button">
-                    <button
-                      type="submit"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        changePass();
-                      }}
-                    >
-                      Change
-                    </button>
-                  </div>
-                </div>
-              )}
-            </form>
-          </div>
+                  {view && (
+                    <div className="buttons">
+                      <button onClick={() => login()}>Login</button>
+                      <button
+                        type="submit"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          validate();
+                        }}
+                      >
+                        Send
+                      </button>
+                    </div>
+                  )}
+                  {!view && (
+                    <div className="psw">
+                      <input
+                        type="password"
+                        name="password"
+                        className="input"
+                        placeholder="New password"
+                        onChange={(e) => inpPass1(e)}
+                      />
+                      <input
+                        type="password"
+                        name="password"
+                        className="input"
+                        placeholder="Confirm password"
+                        onChange={(e) => inpPass2(e)}
+                      />
+
+                      <div className="button">
+                        <button
+                          type="submit"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            changePass();
+                          }}
+                        >
+                          Change
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </form>
+              </div>
+            </div>
+          )}
+          {!show && <Login />}
         </div>
       )}
-
-      {!show && <Login />}
+      {!logg && <Login />}
     </div>
   );
 }
