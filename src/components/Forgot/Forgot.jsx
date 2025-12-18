@@ -172,6 +172,11 @@ function Forgot() {
   function login() {
     setLogg(!logg);
   }
+
+  // Send user back to the main login screen when the logo is clicked
+  function handleLogoClick() {
+    setLogg(false);
+  }
   return (
     <div>
       {/* Render forgot-password flow when logg is true */}
@@ -180,7 +185,12 @@ function Forgot() {
           {/* Show the forgot-password screens until reset is finished */}
           {show && (
             <div className="container">
-              <img className="logo" src="/img/OrbiNombre.png" />
+              <img
+                className="logo"
+                src="/img/OrbiNombre.png"
+                onClick={handleLogoClick}
+                style={{ cursor: "pointer" }}
+              />
 
               <div className="form">
                 {/* Heading switches between email validation and password change */}

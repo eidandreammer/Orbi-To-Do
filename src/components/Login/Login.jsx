@@ -80,6 +80,12 @@ function Login() {
   const [register, setRegister] = useState(true);
   const [pass, setPass] = useState(true);
 
+  // Return to the default login view when the logo is clicked
+  function handleLogoClick() {
+    setPass(true);
+    setRegister(true);
+  }
+
   return (
     <div>
       {/* When pass is true, render either login or register */}
@@ -88,7 +94,12 @@ function Login() {
           {/* Show the login form while register toggle is on */}
           {register && (
             <div className="container">
-              <img className="logo" src="/img/OrbiNombre.png" />
+              <img
+                className="logo"
+                src="/img/OrbiNombre.png"
+                onClick={handleLogoClick}
+                style={{ cursor: "pointer" }}
+              />
 
               <div className="form">
                 <h1>Login</h1>

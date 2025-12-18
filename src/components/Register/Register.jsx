@@ -86,12 +86,22 @@ function Register() {
   // Toggle between the registration form and the login component
   const [view, setView] = useState(true);
 
+  // Send user to the login screen when clicking the logo
+  function handleLogoClick() {
+    setView(false);
+  }
+
   return (
     <div>
       {/* Render registration form while view is true */}
       {view && (
         <div className="container">
-          <img className="logo" src="/img/OrbiNombre.png" />
+          <img
+            className="logo"
+            src="/img/OrbiNombre.png"
+            onClick={handleLogoClick}
+            style={{ cursor: "pointer" }}
+          />
 
           <div className="form">
             <h1>Register</h1>
