@@ -3,17 +3,21 @@ import Login from "../Login/Login";
 import { Alert } from "antd";
 
 function Register() {
-  //Aqui es donde se va a almacenar cada dato del formulario
+  // Store the username typed for registration
   const [users, setUsers] = useState("");
+  // Store the password typed for registration
   const [password, setPassword] = useState("");
+  // Store the email typed for registration
   const [email, setEmail] = useState("");
+  // Track alert flags related to the register form
   const [alerts, setAlerts] = useState({
-    cmpInc: false,
-    problem: false,
-    register: false,
-    error: false,
+    cmpInc: false, // Missing required fields
+    problem: false, // Username or email already exists
+    register: false, // Successful registration
+    error: false, // Request error
   });
 
+  // Auto-dismiss alerts so feedback does not linger forever
   function timer() {
     setTimeout(() => {
       setAlerts((alerts) => ({
@@ -26,31 +30,30 @@ function Register() {
     }, 5000);
   }
 
-  //Aqui es en donde se declara la funcion para llamarla y se actualice
-  //el valor de cada estado con el contenido del input
-
+  // Update local state on each field change
   function inpUser(e) {
     setUsers(e.target.value);
   }
 
+  // Update password when user types
   function inpPassword(e) {
     setPassword(e.target.value);
   }
 
+  // Update email when user types
   function inpEmail(e) {
     setEmail(e.target.value);
   }
 
-  //Evaluamos si alguna de los estados no esta definido y si es asi se indica
-  //que existen datos incompletos
-
+  // Validate inputs and send registration payload to the API
   async function register() {
+    // Guard: require all fields before calling the API
     if (!users || !password || !email) {
       setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
       timer();
       return;
     }
-    const data = { users, password, email }; //se declaran las variables como objetos
+    const data = { users, password, email };
 
     try {
       const res = await fetch("http://localhost:3000/api/register", {
@@ -63,24 +66,29 @@ function Register() {
 
       const result = await res.json();
 
+      // Show error when backend rejects creation
       if (!result.success) {
         setAlerts((alerts) => ({ ...alerts, problem: true }));
         timer();
         return;
       }
+      // Indicate registration success
       setAlerts((alerts) => ({ ...alerts, register: true }));
       timer();
     } catch (error) {
-      console.error("Error al enviar los datos" + error);
+      // Network or server error while registering
+      console.error("Error sending data", error);
       setAlerts((alerts) => ({ ...alerts, error: true }));
       timer();
     }
   }
 
+  // Toggle between the registration form and the login component
   const [view, setView] = useState(true);
 
   return (
     <div>
+      {/* Render registration form while view is true */}
       {view && (
         <div className="container">
           <img className="logo" src="/img/OrbiNombre.png" />
@@ -92,7 +100,7 @@ function Register() {
                 type="text"
                 name="text"
                 className="input"
-                placeholder="User"
+                placeholder="Username"
                 onChange={(e) => inpUser(e)}
               />
               <input
@@ -111,6 +119,7 @@ function Register() {
                 placeholder="Email address"
                 onChange={(e) => inpEmail(e)}
               />
+              {/* Alert: missing fields */}
               {alerts.cmpInc && (
                 <Alert
                   className="alerts"
@@ -118,20 +127,23 @@ function Register() {
                   title="Incomplete fields"
                 />
               )}
+              {/* Alert: duplicate username or email */}
               {alerts.problem && (
                 <Alert
                   className="alerts"
                   type="error"
-                  title="User or email exiting"
+                  title="Username or email already exists"
                 />
               )}
+              {/* Alert: registration success */}
               {alerts.register && (
                 <Alert
                   className="alerts"
                   type="success"
-                  title="Registered user"
+                  title="User registered"
                 />
               )}
+              {/* Alert: request error */}
               {alerts.error && (
                 <Alert
                   className="alerts"
@@ -157,6 +169,7 @@ function Register() {
         </div>
       )}
 
+      {/* Render Login component when view is false */}
       {!view && <Login />}
     </div>
   );

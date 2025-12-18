@@ -4,16 +4,19 @@ import Register from "../Register/Register";
 import Forgot from "../Forgot/Forgot";
 
 function Login() {
-  //Aqui es donde se va a almacenar cada dato del formulario
+  // Store the username typed into the login form
   const [users, setUsers] = useState("");
+  // Store the password typed into the login form
   const [password, setPassword] = useState("");
+  // Track which alert banners should be visible
   const [alerts, setAlerts] = useState({
-    cmpInc: false,
-    problem: false,
-    login: false,
-    error: false,
+    cmpInc: false, // Missing username or password
+    problem: false, // Invalid credentials
+    login: false, // Successful login
+    error: false, // Request error
   });
 
+  // Hide alerts automatically after a few seconds
   function timer() {
     setTimeout(() => {
       setAlerts((alerts) => ({
@@ -25,17 +28,20 @@ function Login() {
       }));
     }, 5000);
   }
-  //Aqui es en donde se declara la funcion para llamarla y se actualice
-  //el valor de cada estado con el contenido del input
 
+  // Sync username input with local state
   function inpUser(e) {
     setUsers(e.target.value);
   }
 
+  // Sync password input with local state
   function inpPassword(e) {
     setPassword(e.target.value);
   }
+
+  // Submit login credentials and show result feedback
   async function login() {
+    // Guard: both fields must be filled before submitting
     if (!users || !password) {
       setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
       timer();
@@ -52,28 +58,34 @@ function Login() {
       });
 
       const result = await res.json();
+      // If backend rejects credentials, show error banner
       if (!result.success) {
         setAlerts((alerts) => ({ ...alerts, problem: true, cmpInc: false }));
         timer();
         return;
       }
 
+      // Successful login shows success alert
       setAlerts((alerts) => ({ ...alerts, login: true, problem: false }));
       timer();
     } catch (error) {
-      console.log("Error al iniciar seccion", error);
+      // Network or server error during login
+      console.log("Error starting session", error);
       setAlerts((alerts) => ({ ...alerts, error: true, login: false }));
       timer();
     }
   }
 
+  // Control whether we show the login form, register form, or password recovery flow
   const [register, setRegister] = useState(true);
   const [pass, setPass] = useState(true);
 
   return (
     <div>
+      {/* When pass is true, render either login or register */}
       {pass && (
         <div>
+          {/* Show the login form while register toggle is on */}
           {register && (
             <div className="container">
               <img className="logo" src="/img/OrbiNombre.png" />
@@ -86,7 +98,7 @@ function Login() {
                     type="text"
                     name="text"
                     className="input"
-                    placeholder="User"
+                    placeholder="Username"
                     onChange={(e) => inpUser(e)}
                   />
                   <input
@@ -96,31 +108,35 @@ function Login() {
                     placeholder="Password"
                     onChange={(e) => inpPassword(e)}
                   />
+                  {/* Alert: missing fields */}
                   {alerts.cmpInc && (
                     <Alert
                       className="alerts"
-                      title="Campos incompletos"
+                      title="Incomplete fields"
                       type="warning"
                     />
                   )}
+                  {/* Alert: wrong credentials */}
                   {alerts.problem && (
                     <Alert
                       className="alerts"
-                      title="Usuario o contrasena Incorrecta"
+                      title="Incorrect username or password"
                       type="error"
                     />
                   )}
+                  {/* Alert: login success */}
                   {alerts.login && (
                     <Alert
                       className="alerts"
-                      title="Inicio de seccion exitoso"
+                      title="Login successful"
                       type="success"
                     />
                   )}
+                  {/* Alert: request error */}
                   {alerts.error && (
                     <Alert
                       className="alerts"
-                      title="Error al iniciar seccion"
+                      title="Error during login"
                       type="error"
                     />
                   )}
@@ -158,9 +174,11 @@ function Login() {
             </div>
           )}
 
+          {/* When register is false, show the Register component */}
           {!register && <Register />}
         </div>
       )}
+      {/* When pass is false, render the Forgot password component */}
       {!pass && <Forgot />}
     </div>
   );

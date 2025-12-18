@@ -1,19 +1,19 @@
-//Importar librerias
+// Import required libraries
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
 
-//Crear la app de express
+// Create the Express app
 const app = express();
 
-//Configuracion basica
+// Basic server configuration
 const port = 3000;
 
-//Middlewares
-app.use(cors()); //Permite que react pueda llamar a este servidor
-app.use(express.json()); //Permite leer JSON en req.body
+// Middleware
+app.use(cors()); // Allows React to call this server
+app.use(express.json()); // Parses JSON bodies
 
-//Configurar conexion a PostgreSQL
+// Configure PostgreSQL connection
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
@@ -22,8 +22,7 @@ const pool = new Pool({
   port: 5432,
 });
 
-//Ruta de read (Obtener todos los items)
-//Get /api/items
+// Handle new user registration
 app.post("/api/register", async (req, res) => {
   const { users, password, email } = req.body;
 
@@ -39,12 +38,12 @@ app.post("/api/register", async (req, res) => {
     if (evaluate1.rows.length > 0) {
       return res.status(409).json({
         success: false,
-        message: "Usuario existente",
+        message: "User already exists",
       });
     } else if (evaluate2.rows.length > 0) {
       return res.status(409).json({
         success: false,
-        message: "Correo asociado a usuario existente",
+        message: "Email already associated with a user",
       });
     }
     const newUser = await pool.query(
@@ -59,12 +58,13 @@ app.post("/api/register", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Error al registrar usuario",
+      message: "Error registering user",
     });
-    console.log("Error al registrar usuario");
+    console.log("Error registering user");
   }
 });
 
+// Handle user login attempt
 app.post("/api/login", async (req, res) => {
   const { users, password, email } = req.body;
 
@@ -76,7 +76,7 @@ app.post("/api/login", async (req, res) => {
     if (evaluate.rows.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "Usuario no encontrado",
+        message: "User not found",
       });
     }
     const login = await pool.query(
@@ -87,7 +87,7 @@ app.post("/api/login", async (req, res) => {
     if (login.rows.length === 0) {
       return res.status(200).json({
         success: false,
-        message: "Contrasena incorrecta",
+        message: "Incorrect password",
       });
     }
 
@@ -98,11 +98,12 @@ app.post("/api/login", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Error de lado del servidor",
+      message: "Server-side error",
     });
   }
 });
 
+// Validate that an email exists before allowing a password change
 app.post("/api/change", async (req, res) => {
   const { email } = req.body;
 
@@ -120,16 +121,17 @@ app.post("/api/change", async (req, res) => {
 
     res.status(404).json({
       success: false,
-      message: "Correo no registrado",
+      message: "Email not registered",
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Error del lado del servidor",
+      message: "Server-side error",
     });
   }
 });
 
+// Update the stored password for a given email
 app.put("/api/pass", async (req, res) => {
   const { pass1, email } = req.body;
 
@@ -142,12 +144,12 @@ app.put("/api/pass", async (req, res) => {
     if (!newPass) {
       return res.status(404).json({
         succes: false,
-        message: "Error al cambiar la contrasena",
+        message: "Error changing password",
       });
     }
     res.status(200).json({
       success: true,
-      message: "Contrasna cambiada",
+      message: "Password changed",
     });
   } catch (error) {
     res.status(500).json({
@@ -156,7 +158,7 @@ app.put("/api/pass", async (req, res) => {
   }
 });
 
-//El servidor esta escuchando
+// Start listening for requests
 app.listen(port, () => {
-  console.log("El servidor esta escuchando en el puerto " + port);
+  console.log("Server listening on port " + port);
 });

@@ -21,7 +21,7 @@
   text-align: center;
 }
 
-/*Logo Orbi*/
+/* Orbi logo placement */
 .logo {
   height: 200px;
   position: absolute;
@@ -79,7 +79,7 @@ button:hover {
   justify-content: space-around;
 }
 
-/*General form*/
+/* General form layout */
 
 form {
   display: flex;
@@ -130,7 +130,7 @@ h1 {
   width: 100%;
 }
 
-/*Avisos al cliente*/
+/* Alert blocks shown to the user */
 
 .alerts {
   margin: 15px;
