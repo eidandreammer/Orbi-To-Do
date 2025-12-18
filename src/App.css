@@ -10,8 +10,9 @@
   background: #f5f5f5;
   box-shadow: #7fc1ff 0px 10px 65px -10px inset,
     #0000004d 0px 18px 26px -18px inset;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,13 +23,11 @@
 
 /*Logo Orbi*/
 .logo {
-  position: absolute;
-  width: 200px;
   height: 200px;
-
-  top: 0;
-
+  position: absolute;
+  top: -10px;
   @media (min-width: 756px) {
+    position: absolute;
     top: -7vh;
     left: 0vw;
   }
@@ -75,7 +74,7 @@ button:hover {
 }
 
 .buttons {
-  margin-top: 5px;
+  margin-top: 10px;
   display: flex;
   justify-content: space-around;
 }
@@ -127,8 +126,15 @@ h1 {
   flex-direction: column;
 }
 
+.psw > * {
+  width: 100%;
+}
+
 /*Avisos al cliente*/
 
-.alerts{
-  margin: 10px;
+.alerts {
+  margin: 15px;
+  max-width: 300px;
+  width: 80vw;
+  height: 7vh;
 }

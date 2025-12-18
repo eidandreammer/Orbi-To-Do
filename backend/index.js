@@ -139,6 +139,12 @@ app.put("/api/pass", async (req, res) => {
       [pass1, email]
     );
 
+    if (!newPass) {
+      return res.status(404).json({
+        succes: false,
+        message: "Error al cambiar la contrasena",
+      });
+    }
     res.status(200).json({
       success: true,
       message: "Contrasna cambiada",
