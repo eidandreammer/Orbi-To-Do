@@ -245,6 +245,7 @@ h1 {
   border: #b8b8b8 solid 1.5px;
   box-shadow: #ced3db 5px 5px 12px;
   border-radius: 20px;
+  padding: 10px;
 }
 
 @media (min-width: 766px) {
