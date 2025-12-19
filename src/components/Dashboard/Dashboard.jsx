@@ -16,7 +16,13 @@ function PrincipalPanel() {
       setAlerts((alerts) => ({ ...alerts, cmpInc: false }));
     }, 5000);
   }
- 
+  async function newTask() {
+    if (!task.trim()) {
+      setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
+      timer();
+      return;
+    }
+  }
   return (
     <div>
       <div className="containerDashboard">
@@ -33,10 +39,25 @@ function PrincipalPanel() {
                 inpTask(e);
               }}
             />
-            <button className="dashboardButton">Add</button>
+            <button
+              className="dashboardButton"
+              onClick={() => {
+                newTask();
+              }}
+            >
+              Add
+            </button>
           </div>
         </form>
-        {alerts && <Alert type="warning" title="Enter a new task" />}
+        <div className="dashboardAlertsContainer">
+          {alerts.cmpInc && (
+            <Alert
+              className="dashboardAlerts"
+              type="warning"
+              title="Enter a new task"
+            />
+          )}
+        </div>
         <div className="tasks">
           <div className="pendingTask">
             <h1>Pending task</h1>

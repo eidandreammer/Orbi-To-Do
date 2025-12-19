@@ -46,7 +46,7 @@ function Login() {
   }
 
   async function login() {
-    if (!users || !password) {
+    if (!users.trim() || !password.trim()) {
       setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
       timer();
       return;
@@ -149,7 +149,7 @@ function Login() {
 
                       <div className="buttons">
                         <button
-                        className="formButton"
+                          className="formButton"
                           type="button"
                           onClick={() => {
                             login();
@@ -158,7 +158,7 @@ function Login() {
                           Login
                         </button>
                         <button
-                        className="formButton"
+                          className="formButton"
                           type="button"
                           onClick={() => setRegister(!register)}
                         >

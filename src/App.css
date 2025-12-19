@@ -171,6 +171,7 @@ h1 {
   width: 100%;
   min-width: 400px;
   display: flex;
+  padding: 0;
 }
 
 @media (min-width: 766px) {
@@ -198,7 +199,6 @@ h1 {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 20px;
 }
 
 .dashboardButton {
@@ -254,4 +254,15 @@ h1 {
     min-height: 250px;
     min-width: 40vw;
   }
+}
+
+.dashboardAlerts {
+  margin-bottom: 20px;
+}
+
+.dashboardAlertsContainer {
+  height: 60px;
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
 }

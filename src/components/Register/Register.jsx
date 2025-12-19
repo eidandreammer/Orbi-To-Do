@@ -54,7 +54,7 @@ function Register() {
   // Validate inputs and send registration payload to the API
   async function register() {
     // Guard: require all fields before calling the API
-    if (!users || !password || !email) {
+    if (!users.trim() || !password.trim() || !email.trim()) {
       setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
       timer();
       return;

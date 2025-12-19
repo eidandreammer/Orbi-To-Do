@@ -105,11 +105,11 @@ function Forgot() {
     const data = { pass1, email };
 
     // Guard: both password fields must be filled
-    if (!pass1 || !pass2) {
+    if (!pass1.trim() || !pass2.trim()) {
       setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
       timer();
       return;
-    } else if (pass2 != pass1) {
+    } else if (pass2.trim() != pass1.trim()) {
       // Guard: passwords must match before submission
       setAlerts((alerts) => ({ ...alerts, diferent: true, cmpInc: false }));
       timer();
