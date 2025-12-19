@@ -24,19 +24,20 @@
   flex-flow: column;
   border: solid 1px #dcdcdc;
   text-align: center;
+  position: relative;
 }
 
 /* === Identidad visual ===
    Posicionamiento del logo de Orbi */
 .logo {
-  height: 200px;
-  position: absolute;
-  top: -10px;
-  cursor: pointer;
-  @media (min-width: 756px) {
+  height: 170px;
+}
+
+@media (min-width: 766px) {
+  .logo {
     position: absolute;
-    top: -7vh;
-    left: 0vw;
+    top: -20px;
+    left: 20px;
   }
 }
 
@@ -162,13 +163,24 @@ h1 {
   flex-flow: column;
   border: solid 1px #dcdcdc;
   text-align: center;
+  position: relative;
 }
 
 .dashboardForm {
   height: auto;
-  width: 50%;
+  width: 100%;
   min-width: 400px;
   display: flex;
+}
+
+@media (min-width: 766px) {
+  .dashboardForm {
+    width: 60%;
+  }
+
+  .dashboardButton {
+    min-width: 80px;
+  }
 }
 
 .dashboardInput {
@@ -176,18 +188,17 @@ h1 {
   padding: 15px;
   border-radius: 15px;
   height: 50px;
-  width: 80%;
+  width: 80vw;
+  outline: none;
+  margin: 10px;
 }
 
 .input-group {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.dashboardInput:focus,
-.dashboardInput:hover {
-  border: 1.6px solid #0d2a58;
+  width: 100%;
+  padding: 20px;
 }
 
 .dashboardButton {
@@ -211,12 +222,35 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   gap: 30px;
+  width: 100vw;
+}
+
+@media (min-width: 766px) {
+  .tasks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 30px;
+    width: 100vw;
+  }
 }
 
 .completedTask,
 .pendingTask {
-  border: solid 1px #000;
   min-height: 200px;
+  min-width: 80vw;
+  border: #b8b8b8 solid 1.5px;
+  box-shadow: #ced3db 5px 5px 12px;
+  border-radius: 20px;
+}
+
+@media (min-width: 766px) {
+  .completedTask,
+  .pendingTask {
+    min-height: 250px;
+    min-width: 40vw;
+  }
 }
