@@ -93,7 +93,7 @@ app.post("/api/login", async (req, res) => {
       });
     }
 
-    res.status(404).json({
+    res.status(200).json({
       success: true,
       data: login.rows[0],
     });
@@ -156,6 +156,50 @@ app.put("/api/pass", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
+      message: "Server-side error",
+    });
+  }
+});
+
+app.post("/api/dashboard", async (req, res) => {
+  const { user, task } = req.body;
+
+  try {
+    const searchId = await pool.query(
+      "SELECT id FROM users WHERE username = $1",
+      [user]
+    );
+
+    if (!searchId.rows.length) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const id = searchId.rows[0].id;
+
+    const newTask = await pool.query(
+      "INSERT INTO tasks (user_id, task_name) VALUES ($1, $2) RETURNING *",
+      [id, task]
+    );
+
+    if (newTask.rows.length < 1) {
+      res.status(404).json({
+        success: false,
+        message: "Task can't be added",
+      });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Task added successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server-Side error",
     });
   }
 });

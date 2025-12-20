@@ -1,27 +1,70 @@
 import React, { useState } from "react";
 import { Alert } from "antd";
 
-function PrincipalPanel() {
+function Dashboard({ user }) {
   const [task, setTask] = useState("");
   const [alerts, setAlerts] = useState({
     cmpInc: false,
+    badTask: false,
+    badServer: false,
+    addTask: false,
   });
-
-  function inpTask(e) {
-    setTask(e.target.value);
-  }
 
   function timer() {
     setTimeout(() => {
-      setAlerts((alerts) => ({ ...alerts, cmpInc: false }));
+      setAlerts((alerts) => ({
+        ...alerts,
+        cmpInc: false,
+        badTask: false,
+        addTask: false,
+      }));
     }, 5000);
   }
+
   async function newTask() {
     if (!task.trim()) {
       setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
       timer();
       return;
     }
+
+    const data = { user, task };
+
+    try {
+      const res = await fetch("http://localhost:3000/api/dashboard", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      if (!result.success) {
+        if (result.message === "Task can't be added") {
+          setAlerts((alerts) => ({ ...alerts, badTask: true, cmpInc: false }));
+          timer();
+          return;
+        }
+
+        setAlerts((alerts) => ({
+          ...alerts,
+          badServer: true,
+          badTask: false,
+          cmpInc: false,
+        }));
+        timer();
+        return;
+      }
+
+      setAlerts((alerts) => ({
+        ...alerts,
+        addTask: true,
+        badServer: false,
+        badServer: false,
+      }));
+      timer();
+    } catch (error) {}
   }
   return (
     <div>
@@ -36,12 +79,13 @@ function PrincipalPanel() {
               type="task"
               placeholder="New task"
               onChange={(e) => {
-                inpTask(e);
+                setTask(e.target.value);
               }}
             />
             <button
               className="dashboardButton"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 newTask();
               }}
             >
@@ -55,6 +99,27 @@ function PrincipalPanel() {
               className="dashboardAlerts"
               type="warning"
               title="Enter a new task"
+            />
+          )}
+          {alerts.badTask && (
+            <Alert
+              className="dashboardAlerts"
+              type="warning"
+              title="Task can't be added"
+            />
+          )}
+          {alerts.badServer && (
+            <Alert
+              className="dashboardAlerts"
+              type="warning"
+              title="Server-Side error"
+            />
+          )}
+          {alerts.addTask && (
+            <Alert
+              className="dashboardAlerts"
+              title="Task added"
+              type="success"
             />
           )}
         </div>
@@ -71,4 +136,4 @@ function PrincipalPanel() {
   );
 }
 
-export default PrincipalPanel;
+export default Dashboard;

@@ -176,7 +176,7 @@ function Login() {
           {!pass && <Forgot />}
         </div>
       )}
-      {!principal && <PrincipalPanel />}
+      {!principal && <Dashboard user={users} />}
     </div>
   );
 }
