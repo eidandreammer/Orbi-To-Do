@@ -21,6 +21,7 @@ function Dashboard({ user }) {
         badTask: false,
         badServer: false,
         addTask: false,
+        error: false,
       }));
     }, 5000);
   }
@@ -29,7 +30,14 @@ function Dashboard({ user }) {
   async function newTask() {
     // Guard: require a non-empty task before calling the API
     if (!task.trim()) {
-      setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
+      setAlerts((alerts) => ({
+        ...alerts,
+        cmpInc: true,
+        badTask: false,
+        badServer: false,
+        addTask: false,
+        error: false,
+      }));
       timer();
       return;
     }
@@ -54,9 +62,11 @@ function Dashboard({ user }) {
         if (result.message === "Task can't be added") {
           setAlerts((alerts) => ({
             ...alerts,
-            badTask: true,
             cmpInc: false,
+            badTask: true,
+            badServer: false,
             addTask: false,
+            error: false,
           }));
           timer();
           return;
@@ -65,9 +75,11 @@ function Dashboard({ user }) {
         // Generic server-side failure
         setAlerts((alerts) => ({
           ...alerts,
-          badServer: true,
-          badTask: false,
           cmpInc: false,
+          badTask: false,
+          badServer: true,
+          addTask: false,
+          error: false,
         }));
         timer();
         return;
@@ -76,13 +88,24 @@ function Dashboard({ user }) {
       // Confirm to the user that the task was added successfully
       setAlerts((alerts) => ({
         ...alerts,
+        cmpInc: false,
+        badTask: false,
+        badServer: false,
         addTask: true,
-        badServer: false,
-        badServer: false,
+        error: false,
       }));
       timer();
     } catch (error) {
       // Swallow unexpected errors to avoid crashing the UI
+      setAlerts((alerts) => ({
+        ...alerts,
+        cmpInc: false,
+        badTask: false,
+        badServer: false,
+        addTask: false,
+        error: true,
+      }));
+      timer();
     }
   }
   return (
@@ -123,6 +146,34 @@ function Dashboard({ user }) {
                 className="dashboardAlerts"
                 title="Incomplete fields"
                 type="warning"
+              />
+            )}
+            {alerts.badTask && (
+              <Alert
+                className="dashboardAlerts"
+                title="Task can't be added"
+                type="error"
+              />
+            )}
+            {alerts.badServer && (
+              <Alert
+                className="dashboardAlerts"
+                title="Server-Side error"
+                type="error"
+              />
+            )}
+            {alerts.addTask && (
+              <Alert
+                className="dashboardAlerts"
+                title="Task added successfully"
+                type="success"
+              />
+            )}
+            {alerts.error && (
+              <Alert
+                className="dashboardAlerts"
+                title="Server-Side error"
+                type="error"
               />
             )}
           </div>
